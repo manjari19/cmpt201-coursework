@@ -22,12 +22,12 @@ int main(void) {
   // split on spaces tabs and newlines
 
   char *save = NULL;
-  char *tok = strtok_r(line, " \t\n", &save);
+  char *tok = strtok_r(line, " \t\r\n", &save);
   while (tok) {
-    printf(" %s\n", tok);
-    tok = strtok_r(NULL, " \t\n", &save);
+    printf("  %s\n", tok);
+    tok = strtok_r(NULL, " \t\r\n", &save);
   }
 
-  free(line); // to cleanupp
+  free(line); // to cleanup
   return 0;
 }
