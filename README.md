@@ -1,22 +1,21 @@
 # CMPT 201 Coursework
 
-This repository contains my work for **CMPT 201** at SFU.  
-It includes labs, assignments, and notes completed inside the course Docker dev environment.
+This repository contains my lab work for **CMPT 201** at SFU.  
 
 ---
 
 
 ## Getting Started
 
-### 1. Clone the repo
+###  1. Clone the repo
 ```bash
-git clone https://github.com/<your-username>/cmpt201-coursework.git
-cd cmpt201-coursework
+docker start -ai cmpt201
 ```
 
 ### 2. Run inside the Docker environment
 ```bash
-docker start -ai cmpt201
+git clone https://github.com/<your-username>/cmpt201-coursework.git
+cd cmpt201-coursework
 ```
 
 ### 3. Compile and run code
