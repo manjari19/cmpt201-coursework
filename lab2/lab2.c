@@ -1,0 +1,48 @@
+// lab2.c
+#include <stdio.h>
+#include <string.h>
+#include <sys/types.h> // pid_t
+#include <sys/wait.h>  // waitpid
+#include <unistd.h>    // fork, execl, _exit
+
+int main(void) {
+  char line[1024];
+
+  while (1) {
+    printf("Enter programs to run.\n> ");
+    fflush(stdout);
+
+    if (fgets(line, sizeof(line), stdin) == NULL)
+      break;
+
+    size_t n = strlen(line);
+    if (n && line[n - 1] == '\n')
+      line[n - 1] = '\0';
+    if (line[0] == '\0')
+      continue;
+
+    pid_t pid = fork();
+    if (pid < 0) {
+      perror("fork");
+      continue;
+    }
+
+    if (pid == 0) {
+      execl(line, line, (char *)NULL);
+      perror("Exec failure");
+      _exit(1);
+    } else {
+      int status = 0;
+      if (waitpid(pid, &status, 0) < 0) {
+        perror("waitpid");
+      } else if (WIFEXITED(status)) {
+        printf("[parent] child %d exited with %d\n", pid, WEXITSTATUS(status));
+      } else if (WIFSIGNALED(status)) {
+        printf("[parent] child %d killed by signal %d\n", pid,
+               WTERMSIG(status));
+      }
+    }
+  }
+
+  return 0;
+}
