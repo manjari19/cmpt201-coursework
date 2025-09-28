@@ -1,0 +1,62 @@
+#define _GNU_SOURCE
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define HISTORY_CAP 5
+
+static char *xstrdup(const char *s) {
+    size_t n = strlen(s) + 1;
+    char *p = malloc(n);
+    if (!p) return NULL;
+    memcpy(p, s, n);
+    return p;
+}
+
+static void trim_newline(char *s) {
+    if (!s) return;
+    size_t n = strlen(s);
+    if (n > 0 && s[n - 1] == '\n') s[n - 1] = '\0';
+}
+
+int main(void) {
+    char *history[HISTORY_CAP] = {0};
+    long long count = 0;
+    char *line = NULL;
+    size_t cap = 0;
+
+    while (1) {
+        printf("Enter input: ");
+        fflush(stdout);
+
+        if (getline(&line, &cap, stdin) == -1) break;
+
+        char *stored = xstrdup(line);
+        if (!stored) break;
+
+        trim_newline(line);
+
+        if (strcmp(line, "print") == 0) {
+            int idx = count % HISTORY_CAP;
+            free(history[idx]);
+            history[idx] = stored;
+            count++;
+
+            long long start = (count > HISTORY_CAP) ? (count - HISTORY_CAP) : 0;
+            for (long long i = start; i < count; i++) {
+                int j = i % HISTORY_CAP;
+                fputs(history[j], stdout);
+            }
+            continue;
+        }
+
+        int idx = count % HISTORY_CAP;
+        free(history[idx]);
+        history[idx] = stored;
+        count++;
+    }
+
+    free(line);
+    for (int i = 0; i < HISTORY_CAP; i++) free(history[i]);
+    return 0;
+}
+
