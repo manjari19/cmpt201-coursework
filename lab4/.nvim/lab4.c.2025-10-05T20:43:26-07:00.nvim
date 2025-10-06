@@ -1,0 +1,94 @@
+#define _DEFAULT_SOURCE
+#include <errno.h>
+#include <inttypes.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+
+#define BUF_SIZE 256
+
+//simple error helper without malloc or printf
+static void die(const char *msg) {
+  char buf[BUF_SIZE];
+  int n = snprintf(buf, sizeof(buf), "ERROR: %s (errno=%d)\n", msg, errno);
+  if (n > 0)
+    write(STDERR_FILENO, buf, (size_t)n);
+  _exit(1);
+}
+
+//small print helpers so we can stay with write()
+static void print_ptr(const char *label, const void *p) {
+  char buf[BUF_SIZE];
+  int n = snprintf(buf, sizeof(buf), "%s%p\n", label, p);
+  if (n < 0)
+    die("snprintf");
+  if (write(STDOUT_FILENO, buf, (size_t)n) < 0)
+    die("write");
+}
+
+static void print_u64(const char *label, uint64_t v) {
+  char buf[BUF_SIZE];
+  int n = snprintf(buf, sizeof(buf), "%s%" PRIu64 "\n", label, v);
+  if (n < 0)
+    die("snprintf");
+  if (write(STDOUT_FILENO, buf, (size_t)n) < 0)
+    die("write");
+}
+
+static void print_byte(uint8_t b) {
+  const char *s = b ? "1\n" : "0\n";
+  if (write(STDOUT_FILENO, s, 2) < 0)
+    die("write");
+}
+
+//block header per lab
+struct header {
+  uint64_t size;
+  struct header *next;
+};
+
+int main(void) {
+  const uint64_t HEAP_INC = 256;
+  const uint64_t BLOCK_SIZE = 128;
+  
+  //reserve 256 byytes from the heap
+  void *region = sbrk((intptr_t)HEAP_INC);
+  if (region == (void *)-1)
+    die("sbrk");
+
+  struct header *first = (struct header *)region;
+  struct header *second = (struct header *)((char *)region + BLOCK_SIZE);
+
+  //payload size is block minus header
+  const uint64_t header_sz = (uint64_t)sizeof(struct header);
+  if (header_sz > BLOCK_SIZE)
+    die("header > block");
+  const uint64_t data_sz = BLOCK_SIZE - header_sz;
+
+  //headers
+  first->size = BLOCK_SIZE;
+  first->next = NULL;
+  second->size = BLOCK_SIZE;
+  second->next = first;
+
+  uint8_t *first_data = (uint8_t *)first + header_sz;
+  uint8_t *second_data = (uint8_t *)second + header_sz;
+  memset(first_data, 0, (size_t)data_sz);
+  memset(second_data, 1, (size_t)data_sz);
+
+  print_ptr("first block:       ", first);
+  print_ptr("second block:      ", second);
+  print_u64("first block size:  ", first->size);
+  print_ptr("first block next:  ", first->next);
+  print_u64("second block size: ", second->size);
+  print_ptr("second block next: ", second->next);
+
+  //print every payload byte
+  for (uint64_t i = 0; i < data_sz; ++i)
+    print_byte(first_data[i]);
+  for (uint64_t i = 0; i < data_sz; ++i)
+    print_byte(second_data[i]);
+
+  return 0;
+}
