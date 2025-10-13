@@ -1,0 +1,92 @@
+//lab5.c Manjari Prasad
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+struct header {
+  uint64_t size;
+  struct header *next;
+  int id;
+};
+
+static void initialize_block(struct header *b, uint64_t sz, struct header *n, int id) {
+  b->size = sz; b->next = n; b->id = id;
+}
+
+// first fit: first block with size >= need
+static int find_first_fit(struct header *free_list_ptr, uint64_t need) {
+  for (struct header *p = free_list_ptr; p; p = p->next)
+    if (p->size >= need) return p->id;
+  return -1;
+}
+
+// best fit: smallest block that still fits
+static int find_best_fit(struct header *free_list_ptr, uint64_t need) {
+  int best_id = -1; uint64_t best_sz = UINT64_MAX;
+  for (struct header *p = free_list_ptr; p; p = p->next)
+    if (p->size >= need && p->size < best_sz) { best_sz = p->size; best_id = p->id; }
+  return best_id;
+}
+
+// worst fit: largest fitting block
+static int find_worst_fit(struct header *free_list_ptr, uint64_t need) {
+  int worst_id = -1; uint64_t worst_sz = 0;
+  for (struct header *p = free_list_ptr; p; p = p->next)
+    if (p->size >= need && p->size > worst_sz) { worst_sz = p->size; worst_id = p->id; }
+  return worst_id;
+}
+
+int main(void) {
+  // build free list: 1:6 -> 2:12 -> 3:24 -> 4:8 -> 5:4
+  struct header *b1 = malloc(sizeof *b1);
+  struct header *b2 = malloc(sizeof *b2);
+  struct header *b3 = malloc(sizeof *b3);
+  struct header *b4 = malloc(sizeof *b4);
+  struct header *b5 = malloc(sizeof *b5);
+  if (!b1 || !b2 || !b3 || !b4 || !b5) { fprintf(stderr, "malloc failed\n"); return 1; }
+
+  initialize_block(b1, 6,  b2, 1);
+  initialize_block(b2, 12, b3, 2);
+  initialize_block(b3, 24, b4, 3);
+  initialize_block(b4, 8,  b5, 4);
+  initialize_block(b5, 4,  NULL, 5);
+
+  struct header *free_list_ptr = b1;
+
+  // request size = 7 (matches sample)
+  int first_fit_id = find_first_fit(free_list_ptr, 7);
+  int best_fit_id  = find_best_fit (free_list_ptr, 7);
+  int worst_fit_id = find_worst_fit(free_list_ptr, 7);
+
+  // required prints
+  printf("The ID for First-Fit algorithm is: %d\n", first_fit_id);
+  printf("The ID for Best-Fit algorithm is: %d\n",  best_fit_id);
+  printf("The ID for Worst-Fit algorithm is: %d\n", worst_fit_id);
+
+  // tidy up
+  free(b1); free(b2); free(b3); free(b4); free(b5);
+  return 0;
+}
+
+/*
+Part 2 — Coalescing contiguous free blocks (plain pseudo-code)
+
+Assume free list is kept in address order. Idea: walk once, merge neighbors that touch.
+
+p = head
+while p && p->next:
+    q = p->next
+    end_of_p = (char*)p + sizeof(struct header) + p->size
+    if end_of_p == (char*)q:       // p and q are back-to-back in memory
+        p->size += sizeof(struct header) + q->size   // absorb q into p
+        p->next = q->next                             // unlink q
+        // stay on p; there might be another neighbor to the right
+    else:
+        p = p->next
+
+After free(z):
+  check m↔z (merge if touching) → (m+z)
+  then (m+z)↔n (merge if touching)
+  keep going until no more joins. Reduces fragmentation, makes bigger blocks possible.
+*/
+
