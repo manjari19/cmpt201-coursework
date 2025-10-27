@@ -1,0 +1,93 @@
+//Manjari Prasad - Lab6
+
+//Example1
+#include <stdio.h>
+#include <stdlib.h>
+
+int main_example1(void) {
+    int *arr = malloc(5 * sizeof(int));
+    if (!arr) {
+        fprintf(stderr, "Memory allocation failed\n");
+        return 1;
+    }
+
+    for (int i = 0; i < 5; i++) {
+        arr[i] = i * 10;
+    }
+
+    for (int i = 0; i < 5; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    free(arr);
+    return 0;
+}
+
+//Example 2
+#include <assert.h>
+
+#define ASSERT(cond, msg) \
+    do { \
+        if (!(cond)) { \
+            fprintf(stderr, "Assertion failed: %s\nFile: %s, Line: %d\n", msg, __FILE__, __LINE__); \
+            exit(EXIT_FAILURE); \
+        } \
+    } while (0)
+
+typedef struct Node {
+    int data;
+    struct Node *next;
+} Node;
+
+typedef struct {
+    Node *head;
+    int sum;
+} Info;
+
+Node *create_node(int data) {
+    Node *node = malloc(sizeof(Node));
+    node->data = data;
+    node->next = NULL;
+    return node;
+}
+
+void append(Node **head, int data) {
+    Node *new_node = create_node(data);
+    if (*head == NULL) {
+        *head = new_node;
+        return;
+    }
+    Node *temp = *head;
+    while (temp->next)
+        temp = temp->next;
+    temp->next = new_node;
+}
+
+int compute_sum(Node *head) {
+    int total = 0;
+    while (head) {
+        total += head->data;
+        head = head->next;
+    }
+    return total;
+}
+
+int main_example2(void) {
+    Info info = { .head = NULL, .sum = 0 };
+    append(&info.head, 1);
+    append(&info.head, 2);
+    append(&info.head, 3);
+    append(&info.head, 4);
+
+    Node *temp = info.head;
+    while (temp) {
+        info.sum += temp->data;
+        temp = temp->next;
+    }
+
+    int check_sum = compute_sum(info.head);
+    ASSERT(info.sum == check_sum, "Sum mismatch between computed and expected");
+    printf("All assertions passed. Sum = %d\n", info.sum);
+    return 0;
+}
