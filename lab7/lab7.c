@@ -76,7 +76,7 @@ void map(Input* input, IntermediateInput *intermediate_input) {
 }
 
 void groupByKey(IntermediateInput* input, Output *output, int *result_count) {
-    // Try to find an existing group
+    //finding exusting grp
     for (int i = 0; i < *result_count; i++) {
         if (output[i].doubled_value == input->doubled_value) {
             if (output[i].count < MAX_INPUT) {
@@ -86,7 +86,7 @@ void groupByKey(IntermediateInput* input, Output *output, int *result_count) {
         }
     }
 
-    // Create a new group (first-seen order)
+    //create a new group
     if (*result_count < MAX_INPUT) {
         int idx = *result_count;
         output[idx].doubled_value = input->doubled_value;
