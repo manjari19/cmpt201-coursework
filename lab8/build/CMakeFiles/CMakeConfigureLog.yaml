@@ -39,8 +39,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-kMqAfh"
-      binary: "/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-kMqAfh"
+      source: "/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-heEShQ"
+      binary: "/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-heEShQ"
     cmakeVariables:
       CMAKE_C_FLAGS: ""
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -49,13 +49,13 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-kMqAfh'
+        Change Dir: '/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-heEShQ'
         
-        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_93831/fast
-        /usr/bin/gmake  -f CMakeFiles/cmTC_93831.dir/build.make CMakeFiles/cmTC_93831.dir/build
-        gmake[1]: Entering directory '/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-kMqAfh'
-        Building C object CMakeFiles/cmTC_93831.dir/CMakeCCompilerABI.c.o
-        /usr/bin/clang   -v -MD -MT CMakeFiles/cmTC_93831.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_93831.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_93831.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_bd460/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_bd460.dir/build.make CMakeFiles/cmTC_bd460.dir/build
+        gmake[1]: Entering directory '/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-heEShQ'
+        Building C object CMakeFiles/cmTC_bd460.dir/CMakeCCompilerABI.c.o
+        /usr/bin/clang   -v -MD -MT CMakeFiles/cmTC_bd460.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_bd460.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_bd460.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c
         Ubuntu clang version 18.1.3 (1ubuntu1)
         Target: aarch64-unknown-linux-gnu
         Thread model: posix
@@ -65,7 +65,7 @@ events:
         Candidate multilib: .;@m64
         Selected multilib: .;@m64
          (in-process)
-         "/usr/lib/llvm-18/bin/clang" -cc1 -triple aarch64-unknown-linux-gnu -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=non-leaf -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu generic -target-feature +v8a -target-feature +fp-armv8 -target-feature +neon -target-abi aapcs -debugger-tuning=gdb -fdebug-compilation-dir=/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-kMqAfh -v -fcoverage-compilation-dir=/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-kMqAfh -resource-dir /usr/lib/llvm-18/lib/clang/18 -dependency-file CMakeFiles/cmTC_93831.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_93831.dir/CMakeCCompilerABI.c.o -sys-header-deps -internal-isystem /usr/lib/llvm-18/lib/clang/18/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib/gcc/aarch64-linux-gnu/13/../../../../aarch64-linux-gnu/include -internal-externc-isystem /usr/include/aarch64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -ferror-limit 19 -fno-signed-char -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -target-feature +outline-atomics -target-feature -fmv -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_93831.dir/CMakeCCompilerABI.c.o -x c /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c
+         "/usr/lib/llvm-18/bin/clang" -cc1 -triple aarch64-unknown-linux-gnu -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=non-leaf -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu generic -target-feature +v8a -target-feature +fp-armv8 -target-feature +neon -target-abi aapcs -debugger-tuning=gdb -fdebug-compilation-dir=/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-heEShQ -v -fcoverage-compilation-dir=/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-heEShQ -resource-dir /usr/lib/llvm-18/lib/clang/18 -dependency-file CMakeFiles/cmTC_bd460.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_bd460.dir/CMakeCCompilerABI.c.o -sys-header-deps -internal-isystem /usr/lib/llvm-18/lib/clang/18/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib/gcc/aarch64-linux-gnu/13/../../../../aarch64-linux-gnu/include -internal-externc-isystem /usr/include/aarch64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -ferror-limit 19 -fno-signed-char -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -target-feature +outline-atomics -target-feature -fmv -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_bd460.dir/CMakeCCompilerABI.c.o -x c /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c
         clang -cc1 version 18.1.3 based upon LLVM 18.1.3 default target aarch64-unknown-linux-gnu
         ignoring nonexistent directory "/usr/bin/../lib/gcc/aarch64-linux-gnu/13/../../../../aarch64-linux-gnu/include"
         ignoring nonexistent directory "/include"
@@ -76,9 +76,9 @@ events:
          /usr/include/aarch64-linux-gnu
          /usr/include
         End of search list.
-        Linking C executable cmTC_93831
-        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_93831.dir/link.txt --verbose=1
-        /usr/bin/clang  -v CMakeFiles/cmTC_93831.dir/CMakeCCompilerABI.c.o -o cmTC_93831 
+        Linking C executable cmTC_bd460
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bd460.dir/link.txt --verbose=1
+        /usr/bin/clang  -v CMakeFiles/cmTC_bd460.dir/CMakeCCompilerABI.c.o -o cmTC_bd460 
         Ubuntu clang version 18.1.3 (1ubuntu1)
         Target: aarch64-unknown-linux-gnu
         Thread model: posix
@@ -87,8 +87,8 @@ events:
         Selected GCC installation: /usr/bin/../lib/gcc/aarch64-linux-gnu/13
         Candidate multilib: .;@m64
         Selected multilib: .;@m64
-         "/usr/bin/ld" -EL -z relro --hash-style=gnu --build-id --eh-frame-hdr -m aarch64linux -pie -dynamic-linker /lib/ld-linux-aarch64.so.1 -o cmTC_93831 /lib/aarch64-linux-gnu/Scrt1.o /lib/aarch64-linux-gnu/crti.o /usr/bin/../lib/gcc/aarch64-linux-gnu/13/crtbeginS.o -L/usr/bin/../lib/gcc/aarch64-linux-gnu/13 -L/lib/aarch64-linux-gnu -L/usr/lib/aarch64-linux-gnu -L/lib -L/usr/lib CMakeFiles/cmTC_93831.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/bin/../lib/gcc/aarch64-linux-gnu/13/crtendS.o /lib/aarch64-linux-gnu/crtn.o
-        gmake[1]: Leaving directory '/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-kMqAfh'
+         "/usr/bin/ld" -EL -z relro --hash-style=gnu --build-id --eh-frame-hdr -m aarch64linux -pie -dynamic-linker /lib/ld-linux-aarch64.so.1 -o cmTC_bd460 /lib/aarch64-linux-gnu/Scrt1.o /lib/aarch64-linux-gnu/crti.o /usr/bin/../lib/gcc/aarch64-linux-gnu/13/crtbeginS.o -L/usr/bin/../lib/gcc/aarch64-linux-gnu/13 -L/lib/aarch64-linux-gnu -L/usr/lib/aarch64-linux-gnu -L/lib -L/usr/lib CMakeFiles/cmTC_bd460.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/bin/../lib/gcc/aarch64-linux-gnu/13/crtendS.o /lib/aarch64-linux-gnu/crtn.o
+        gmake[1]: Leaving directory '/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-heEShQ'
         
       exitCode: 0
   -
@@ -122,13 +122,13 @@ events:
     message: |
       Parsed C implicit link information:
         link line regex: [^( *|.*[/\\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
-        ignore line: [Change Dir: '/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-kMqAfh']
+        ignore line: [Change Dir: '/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-heEShQ']
         ignore line: []
-        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_93831/fast]
-        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_93831.dir/build.make CMakeFiles/cmTC_93831.dir/build]
-        ignore line: [gmake[1]: Entering directory '/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-kMqAfh']
-        ignore line: [Building C object CMakeFiles/cmTC_93831.dir/CMakeCCompilerABI.c.o]
-        ignore line: [/usr/bin/clang   -v -MD -MT CMakeFiles/cmTC_93831.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_93831.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_93831.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c]
+        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_bd460/fast]
+        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_bd460.dir/build.make CMakeFiles/cmTC_bd460.dir/build]
+        ignore line: [gmake[1]: Entering directory '/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-heEShQ']
+        ignore line: [Building C object CMakeFiles/cmTC_bd460.dir/CMakeCCompilerABI.c.o]
+        ignore line: [/usr/bin/clang   -v -MD -MT CMakeFiles/cmTC_bd460.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_bd460.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_bd460.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c]
         ignore line: [Ubuntu clang version 18.1.3 (1ubuntu1)]
         ignore line: [Target: aarch64-unknown-linux-gnu]
         ignore line: [Thread model: posix]
@@ -140,7 +140,7 @@ events:
         ignore line: [Selected multilib: .]
         ignore line: [@m64]
         ignore line: [ (in-process)]
-        ignore line: [ "/usr/lib/llvm-18/bin/clang" -cc1 -triple aarch64-unknown-linux-gnu -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=non-leaf -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu generic -target-feature +v8a -target-feature +fp-armv8 -target-feature +neon -target-abi aapcs -debugger-tuning=gdb -fdebug-compilation-dir=/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-kMqAfh -v -fcoverage-compilation-dir=/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-kMqAfh -resource-dir /usr/lib/llvm-18/lib/clang/18 -dependency-file CMakeFiles/cmTC_93831.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_93831.dir/CMakeCCompilerABI.c.o -sys-header-deps -internal-isystem /usr/lib/llvm-18/lib/clang/18/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib/gcc/aarch64-linux-gnu/13/../../../../aarch64-linux-gnu/include -internal-externc-isystem /usr/include/aarch64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -ferror-limit 19 -fno-signed-char -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -target-feature +outline-atomics -target-feature -fmv -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_93831.dir/CMakeCCompilerABI.c.o -x c /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c]
+        ignore line: [ "/usr/lib/llvm-18/bin/clang" -cc1 -triple aarch64-unknown-linux-gnu -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=non-leaf -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu generic -target-feature +v8a -target-feature +fp-armv8 -target-feature +neon -target-abi aapcs -debugger-tuning=gdb -fdebug-compilation-dir=/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-heEShQ -v -fcoverage-compilation-dir=/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-heEShQ -resource-dir /usr/lib/llvm-18/lib/clang/18 -dependency-file CMakeFiles/cmTC_bd460.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_bd460.dir/CMakeCCompilerABI.c.o -sys-header-deps -internal-isystem /usr/lib/llvm-18/lib/clang/18/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib/gcc/aarch64-linux-gnu/13/../../../../aarch64-linux-gnu/include -internal-externc-isystem /usr/include/aarch64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -ferror-limit 19 -fno-signed-char -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -target-feature +outline-atomics -target-feature -fmv -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_bd460.dir/CMakeCCompilerABI.c.o -x c /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c]
         ignore line: [clang -cc1 version 18.1.3 based upon LLVM 18.1.3 default target aarch64-unknown-linux-gnu]
         ignore line: [ignoring nonexistent directory "/usr/bin/../lib/gcc/aarch64-linux-gnu/13/../../../../aarch64-linux-gnu/include"]
         ignore line: [ignoring nonexistent directory "/include"]
@@ -151,9 +151,9 @@ events:
         ignore line: [ /usr/include/aarch64-linux-gnu]
         ignore line: [ /usr/include]
         ignore line: [End of search list.]
-        ignore line: [Linking C executable cmTC_93831]
-        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_93831.dir/link.txt --verbose=1]
-        ignore line: [/usr/bin/clang  -v CMakeFiles/cmTC_93831.dir/CMakeCCompilerABI.c.o -o cmTC_93831 ]
+        ignore line: [Linking C executable cmTC_bd460]
+        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bd460.dir/link.txt --verbose=1]
+        ignore line: [/usr/bin/clang  -v CMakeFiles/cmTC_bd460.dir/CMakeCCompilerABI.c.o -o cmTC_bd460 ]
         ignore line: [Ubuntu clang version 18.1.3 (1ubuntu1)]
         ignore line: [Target: aarch64-unknown-linux-gnu]
         ignore line: [Thread model: posix]
@@ -164,7 +164,7 @@ events:
         ignore line: [@m64]
         ignore line: [Selected multilib: .]
         ignore line: [@m64]
-        link line: [ "/usr/bin/ld" -EL -z relro --hash-style=gnu --build-id --eh-frame-hdr -m aarch64linux -pie -dynamic-linker /lib/ld-linux-aarch64.so.1 -o cmTC_93831 /lib/aarch64-linux-gnu/Scrt1.o /lib/aarch64-linux-gnu/crti.o /usr/bin/../lib/gcc/aarch64-linux-gnu/13/crtbeginS.o -L/usr/bin/../lib/gcc/aarch64-linux-gnu/13 -L/lib/aarch64-linux-gnu -L/usr/lib/aarch64-linux-gnu -L/lib -L/usr/lib CMakeFiles/cmTC_93831.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/bin/../lib/gcc/aarch64-linux-gnu/13/crtendS.o /lib/aarch64-linux-gnu/crtn.o]
+        link line: [ "/usr/bin/ld" -EL -z relro --hash-style=gnu --build-id --eh-frame-hdr -m aarch64linux -pie -dynamic-linker /lib/ld-linux-aarch64.so.1 -o cmTC_bd460 /lib/aarch64-linux-gnu/Scrt1.o /lib/aarch64-linux-gnu/crti.o /usr/bin/../lib/gcc/aarch64-linux-gnu/13/crtbeginS.o -L/usr/bin/../lib/gcc/aarch64-linux-gnu/13 -L/lib/aarch64-linux-gnu -L/usr/lib/aarch64-linux-gnu -L/lib -L/usr/lib CMakeFiles/cmTC_bd460.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/bin/../lib/gcc/aarch64-linux-gnu/13/crtendS.o /lib/aarch64-linux-gnu/crtn.o]
           arg [/usr/bin/ld] ==> ignore
           arg [-EL] ==> ignore
           arg [-zrelro] ==> ignore
@@ -177,7 +177,7 @@ events:
           arg [-dynamic-linker] ==> ignore
           arg [/lib/ld-linux-aarch64.so.1] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_93831] ==> ignore
+          arg [cmTC_bd460] ==> ignore
           arg [/lib/aarch64-linux-gnu/Scrt1.o] ==> obj [/lib/aarch64-linux-gnu/Scrt1.o]
           arg [/lib/aarch64-linux-gnu/crti.o] ==> obj [/lib/aarch64-linux-gnu/crti.o]
           arg [/usr/bin/../lib/gcc/aarch64-linux-gnu/13/crtbeginS.o] ==> obj [/usr/bin/../lib/gcc/aarch64-linux-gnu/13/crtbeginS.o]
@@ -186,7 +186,7 @@ events:
           arg [-L/usr/lib/aarch64-linux-gnu] ==> dir [/usr/lib/aarch64-linux-gnu]
           arg [-L/lib] ==> dir [/lib]
           arg [-L/usr/lib] ==> dir [/usr/lib]
-          arg [CMakeFiles/cmTC_93831.dir/CMakeCCompilerABI.c.o] ==> ignore
+          arg [CMakeFiles/cmTC_bd460.dir/CMakeCCompilerABI.c.o] ==> ignore
           arg [-lgcc] ==> lib [gcc]
           arg [--as-needed] ==> ignore
           arg [-lgcc_s] ==> lib [gcc_s]
@@ -222,8 +222,8 @@ events:
     checks:
       - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
     directories:
-      source: "/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-ZhwsGP"
-      binary: "/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-ZhwsGP"
+      source: "/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-fsDWd5"
+      binary: "/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-fsDWd5"
     cmakeVariables:
       CMAKE_C_FLAGS: ""
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -232,17 +232,17 @@ events:
       variable: "CMAKE_HAVE_LIBC_PTHREAD"
       cached: true
       stdout: |
-        Change Dir: '/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-ZhwsGP'
+        Change Dir: '/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-fsDWd5'
         
-        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_5a364/fast
-        /usr/bin/gmake  -f CMakeFiles/cmTC_5a364.dir/build.make CMakeFiles/cmTC_5a364.dir/build
-        gmake[1]: Entering directory '/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-ZhwsGP'
-        Building C object CMakeFiles/cmTC_5a364.dir/src.c.o
-        /usr/bin/clang -DCMAKE_HAVE_LIBC_PTHREAD   -MD -MT CMakeFiles/cmTC_5a364.dir/src.c.o -MF CMakeFiles/cmTC_5a364.dir/src.c.o.d -o CMakeFiles/cmTC_5a364.dir/src.c.o -c /home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-ZhwsGP/src.c
-        Linking C executable cmTC_5a364
-        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5a364.dir/link.txt --verbose=1
-        /usr/bin/clang CMakeFiles/cmTC_5a364.dir/src.c.o -o cmTC_5a364 
-        gmake[1]: Leaving directory '/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-ZhwsGP'
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_77e9b/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_77e9b.dir/build.make CMakeFiles/cmTC_77e9b.dir/build
+        gmake[1]: Entering directory '/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-fsDWd5'
+        Building C object CMakeFiles/cmTC_77e9b.dir/src.c.o
+        /usr/bin/clang -DCMAKE_HAVE_LIBC_PTHREAD   -MD -MT CMakeFiles/cmTC_77e9b.dir/src.c.o -MF CMakeFiles/cmTC_77e9b.dir/src.c.o.d -o CMakeFiles/cmTC_77e9b.dir/src.c.o -c /home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-fsDWd5/src.c
+        Linking C executable cmTC_77e9b
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_77e9b.dir/link.txt --verbose=1
+        /usr/bin/clang CMakeFiles/cmTC_77e9b.dir/src.c.o -o cmTC_77e9b 
+        gmake[1]: Leaving directory '/home/cmpt201/cmpt201-coursework/lab8/build/CMakeFiles/CMakeScratch/TryCompile-fsDWd5'
         
       exitCode: 0
 ...
