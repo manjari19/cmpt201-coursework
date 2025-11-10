@@ -1,9 +1,9 @@
 // Lab 8 - Starting Code for sorting data in threads using uthash
-#include "uthash.h"
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "uthash.h"
 #define THREAD_COUNT 3
 typedef const char *word_t;
 
@@ -33,8 +33,7 @@ static void add_word_counts_in_chunk(count_map_t *map, word_t *words,
   // Make this function thread-safe by using the lock
 
   for (size_t i = 0; i < num_words; i++) {
-    if (lock)
-      pthread_mutex_lock(lock); // lock each pass
+    if (lock) pthread_mutex_lock(lock);               // lock each pass
 
     word_count_entry_t *w = NULL;
     HASH_FIND_STR(*map, words[i], w);
@@ -46,8 +45,7 @@ static void add_word_counts_in_chunk(count_map_t *map, word_t *words,
       HASH_ADD_STR(*map, word, w);
     }
 
-    if (lock)
-      pthread_mutex_unlock(lock); // unlock each pass
+    if (lock) pthread_mutex_unlock(lock);             // unlock each pass
   }
 }
 
@@ -79,8 +77,7 @@ static count_map_t count_words_parallel(word_t *words, size_t num_words) {
         chunk_size + (i == THREAD_COUNT - 1 ? num_words % THREAD_COUNT : 0);
 
     // TODO: Prepare the arguments and launch the threads
-    threads_args[i] =
-        pack_args(&map, thread_arg_words, thread_arg_num_words, &count_mutex);
+    threads_args[i] = pack_args(&map, thread_arg_words, thread_arg_num_words, &count_mutex);
     pthread_create(&threads[i], NULL, counter_thread_func, threads_args[i]);
   }
 
@@ -188,3 +185,4 @@ static void *counter_thread_func(void *param) {
 
   return NULL;
 }
+

@@ -1,0 +1,52 @@
+ lab8.c
+    1 // Lab 8 - Starting Code for sorting data in threads using uthash
+    2 #include <pthread.h>
+    3 #include <stdio.h>
+    4 #include <stdlib.h>
+E   5 #include <uthash.h>     ■ 'uthash.h' file not found
+    6 #define THREAD_COUNT 3
+    7 typedef const char *word_t;
+    8
+    9 typedef struct {
+   10 ┆ word_t word;
+   11 ┆ size_t count;
+   12 ┆ UT_hash_handle hh;
+   13 } word_count_entry_t;
+   14
+   15 word_count_entry_t *create_entry(word_t, size_t);
+   16
+   17 typedef word_count_entry_t *count_map_t;
+   18
+   19 typedef struct {
+   20 ┆ count_map_t *map;
+   21 ┆ word_t *words;
+   22 ┆ size_t num_words;
+   23 ┆ pthread_mutex_t *lock;
+   24 } count_thread_args_t;
+   25
+   26 count_thread_args_t *pack_args(count_map_t *map, word_t *words,
+   27 ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆  size_t num_words, pthread_mutex_t *lock);
+   28
+   29 static void add_word_counts_in_chunk(count_map_t *map, word_t *words,
+   30 ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆ ┆  size_t num_words, pthread_mutex_t *lock) {
+   31 ┆ // --------- Task 4 --------- \\
+   32 ┆ // Make this function thread-safe by using the lock
+   33 ┆
+   34 ┆ for (size_t i = 0; i < num_words; i++) {
+   35 ┆ ┆ word_count_entry_t *w = NULL;
+   36 ┆ ┆ HASH_FIND_STR(*map, words[i], w);
+   37 ┆ ┆
+   38 ┆ ┆ if (w) {
+   39 ┆ ┆ ┆ w->count++;
+   40 ┆ ┆ } else {
+   41 ┆ ┆ ┆ w = create_entry(words[i], 1);
+   42 ┆ ┆ ┆ HASH_ADD_STR(*map, word, w);
+   43 ┆ ┆ }
+   44 ┆ }
+   45 }
+   46
+   47 static void *counter_thread_func(void *);
+   48
+   49 static count_map_t count_words_parallel(word_t *words, size_t num_words) {
+ NORMAL  lab8.c                                                E: 1  unix | utf-8 | c   28%   49:1
+

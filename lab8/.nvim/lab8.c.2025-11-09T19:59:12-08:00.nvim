@@ -1,0 +1,120 @@
+#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <uthash.h>
+
+#define THREAD_COUNT 3
+typedef const char *word_t;
+
+typedef struct {
+  char *word;
+  size_t count;
+  UT_hash_handle hh;
+} word_count_entry_t;
+
+typedef word_count_entry_t *count_map_t;
+
+typedef struct {
+  count_map_t *map;
+  word_t *words;
+  size_t num_words;
+  pthread_mutex_t *lock;
+} count_thread_args_t;
+
+static int by_word_asc(const word_count_entry_t *a, const word_count_entry_t *b) {
+  return strcmp(a->word, b->word);
+}
+
+static word_count_entry_t *create_entry(const char *w) {
+  word_count_entry_t *e = calloc(1, sizeof(*e));
+  e->word = strdup(w);
+  return e;
+}
+
+static void add_word_counts_in_chunk(count_map_t *map, word_t *words,
+                                     size_t n, pthread_mutex_t *lock) {
+  for (size_t i = 0; i < n; i++) {
+    if (lock) pthread_mutex_lock(lock);
+    word_count_entry_t *found = NULL;
+    HASH_FIND_STR(*map, words[i], found);
+    if (!found) {
+      found = create_entry(words[i]);
+      HASH_ADD_KEYPTR(hh, *map, found->word, strlen(found->word), found);
+    }
+    found->count++;
+    if (lock) pthread_mutex_unlock(lock);
+  }
+}
+
+static count_thread_args_t *pack_args(count_map_t *map, word_t *words,
+                                      size_t n, pthread_mutex_t *lock) {
+  count_thread_args_t *a = malloc(sizeof(*a));
+  a->map = map; a->words = words; a->num_words = n; a->lock = lock;
+  return a;
+}
+
+static void *counter_thread_func(void *p) {
+  count_thread_args_t *a = p;
+  add_word_counts_in_chunk(a->map, a->words, a->num_words, a->lock);
+  return NULL;
+}
+
+static void count_words_seq(count_map_t *map, word_t *w, size_t n) {
+  add_word_counts_in_chunk(map, w, n, NULL);
+}
+
+static void count_words_parallel(count_map_t *map, word_t *w, size_t n,
+                                 size_t tcount) {
+  if (tcount == 0) tcount = 1;
+  if (tcount > n) tcount = n;
+  pthread_t *threads = calloc(tcount, sizeof(pthread_t));
+  count_thread_args_t **args = calloc(tcount, sizeof(*args));
+  pthread_mutex_t m; pthread_mutex_init(&m, NULL);
+
+  size_t base = n / tcount, rem = n % tcount, off = 0;
+  for (size_t t = 0; t < tcount; t++) {
+    size_t chunk = base + (t < rem ? 1 : 0);
+    args[t] = pack_args(map, w + off, chunk, &m);
+    off += chunk;
+    pthread_create(&threads[t], NULL, counter_thread_func, args[t]);
+  }
+  for (size_t t = 0; t < tcount; t++) pthread_join(threads[t], NULL);
+
+  for (size_t t = 0; t < tcount; t++) free(args[t]);
+  free(args); free(threads);
+  pthread_mutex_destroy(&m);
+}
+
+static void print_counts_sorted(count_map_t map) {
+  HASH_SORT(map, by_word_asc); // sort
+  printf("Word                            Count\n");
+  word_count_entry_t *it, *tmp;
+  HASH_ITER(hh, map, it, tmp) printf("%-30s %zu\n", it->word, it->count);
+}
+
+static void free_map(count_map_t *map) {
+  word_count_entry_t *it, *tmp;
+  HASH_ITER(hh, *map, it, tmp) {
+    HASH_DEL(*map, it);
+    free(it->word);
+    free(it);
+  }
+  *map = NULL;
+}
+
+static const char *demo_words[] = {
+  "the","quick","brown","fox","jumps","over","the","lazy","dog",
+  "the","quick","brown","fox","the"
+};
+
+int main(void) {
+  count_map_t map = NULL;
+  size_t n = sizeof(demo_words)/sizeof(demo_words[0]);
+  // count_words_seq(&map, (word_t *)demo_words, n);
+  count_words_parallel(&map, (word_t *)demo_words, n, THREAD_COUNT);
+  print_counts_sorted(map);
+  free_map(&map);
+  return 0;
+}
+
