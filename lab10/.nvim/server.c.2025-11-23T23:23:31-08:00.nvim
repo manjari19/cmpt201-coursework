@@ -89,8 +89,8 @@ Why are these sockets made non-blocking? What purpose does it serve?
 #include <stdlib.h>
 #include <string.h>
 #include <sys/socket.h>
-#include <time.h>
 #include <unistd.h>
+#include <time.h>
 #define BUF_SIZE 1024
 #define PORT 8001
 #define LISTEN_BACKLOG 32
@@ -215,6 +215,7 @@ static void *run_client(void *args) {
       pthread_mutex_lock(cargs->list_lock);
       add_to_list(cargs->list_handle, new_node);
       pthread_mutex_unlock(cargs->list_lock);
+
     }
   }
 
@@ -250,8 +251,7 @@ static void *run_acceptor(void *args) {
         client_args[num_clients].list_handle = aargs->list_handle;
         client_args[num_clients].list_lock = aargs->list_lock;
         num_clients++;
-        pthread_create(&threads[num_clients - 1], NULL, run_client,
-                       &client_args[num_clients - 1]);
+        pthread_create(&threads[num_clients - 1], NULL, run_client, &client_args[num_clients - 1]);
       }
     }
   }
@@ -263,6 +263,7 @@ static void *run_acceptor(void *args) {
     client_args[i].run = false;
     pthread_join(threads[i], NULL);
     close(client_args[i].cfd);
+
   }
 
   if (close(sfd) == -1) {
@@ -298,9 +299,13 @@ int main() {
     pthread_mutex_unlock(&list_mutex);
 
     if (count >= MAX_CLIENTS * NUM_MSG_PER_CLIENT) {
-      break;
+        break;
     }
+    struct timespec ts = {0, 1 * 1000 * 1000}; // 1 millisecond
+    nanosleep(&ts, NULL);
   }
+
+
   aargs.run = false;
   pthread_join(acceptor_thread, NULL);
 

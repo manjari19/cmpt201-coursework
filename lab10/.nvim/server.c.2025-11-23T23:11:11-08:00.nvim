@@ -1,84 +1,3 @@
-/*
-Understanding the Client:
-1. How is the client sending data to the server? What protocol?
-   - The client uses a TCP connection: it creates a socket with
-     socket(AF_INET, SOCK_STREAM, 0), connects to the server with
-     connect(), and then sends data using write() over that TCP stream.
-
-2. What data is the client sending to the server?
-   - It sends the 5 strings in the messages[] array:
-       "Hello", "Apple", "Car", "Green", "Dog"
-     in that order. Each message is copied into a buffer of size BUF_SIZE
-     and written with write(sfd, buf, BUF_SIZE), so the server receives
-     fixed-size 1024-byte messages padded with '\0'.
-
-Understanding the Server:
-1. Explain the argument that the `run_acceptor` thread is passed as an argument.
-   - The argument is a pointer to a struct acceptor_args. That struct
-     contains:
-       - an atomic_bool run flag that tells the acceptor thread when to stop,
-       - a pointer to the shared list_handle used to store received messages,
-       - a pointer to the mutex (list_lock) that protects the list.
-     main() initializes one acceptor_args instance and passes its address
-     to pthread_create(), and run_acceptor() casts it back and uses it.
-
-2. How are received messages stored?
-   - Each client thread (run_client) reads messages into a local buffer,
-     allocates a new struct list_node, allocates a data buffer for the
-     message, copies the message into that buffer, and then calls
-     add_to_list() to append the node to the end of a singly linked list.
-     The list_handle keeps a pointer to the last node and a count of how
-     many messages have been added.
-
-3. What does `main()` do with the received messages?
-   - main() waits until the list_handle.count indicates that enough
-     messages have been received. Then it stops the acceptor thread,
-     checks that the total number of messages equals
-     MAX_CLIENTS * NUM_MSG_PER_CLIENT, and calls collect_all(head).
-     collect_all() walks the list, prints each "Collected: <message>",
-     frees the nodes and their data, and returns how many messages were
-     collected. main() then reports whether all messages were collected.
-
-4. How are threads used in this sample code?
-   - There are multiple threads:
-       - The main thread starts the acceptor thread and waits for enough
-         messages to arrive.
-       - The acceptor thread listens for incoming client connections on
-         the server socket. For each client, it creates a client thread.
-       - Each client thread handles reading from its client socket and
-         appending received messages to the shared list in a thread-safe
-         way. When shutting down, the acceptor thread signals client
-         threads to stop and joins them.
-
-Non-blocking sockets:
-Explain the use of non-blocking sockets in this lab.
-How are sockets made non-blocking?
-What sockets are made non-blocking?
-Why are these sockets made non-blocking? What purpose does it serve?
-
-   - The sockets are made non-blocking so that the threads are not
-     permanently stuck in accept() or read() calls. Instead of blocking
-     forever, these calls return -1 with errno == EAGAIN or EWOULDBLOCK
-     when there is no connection or data yet, and the thread can loop,
-     check the run flag, and eventually shut down cleanly.
-
-   - Sockets are made non-blocking using the set_non_blocking() helper:
-       - It calls fcntl(fd, F_GETFL) to get the current flags and then
-         fcntl(fd, F_SETFL, flags | O_NONBLOCK) to add the O_NONBLOCK flag.
-
-   - The server socket (the listening socket) is made non-blocking in
-     run_acceptor(), and each client connection socket (cfd) is made
-     non-blocking in run_client().
-
-   - This serves two main purposes:
-       1) The acceptor thread can keep looping and check the run flag
-          instead of being stuck forever in accept() when no clients
-          are connecting.
-       2) The client threads can keep looping and check the run flag
-          instead of blocking forever in read() when the client stops
-          sending data. This lets the program stop all threads gracefully.
-*/
-
 #include <arpa/inet.h>
 #include <errno.h>
 #include <fcntl.h>
@@ -89,7 +8,6 @@ Why are these sockets made non-blocking? What purpose does it serve?
 #include <stdlib.h>
 #include <string.h>
 #include <sys/socket.h>
-#include <time.h>
 #include <unistd.h>
 #define BUF_SIZE 1024
 #define PORT 8001
@@ -212,9 +130,7 @@ static void *run_client(void *args) {
       memcpy(new_node->data, msg_buf, BUF_SIZE);
 
       struct list_handle *list_handle = cargs->list_handle;
-      pthread_mutex_lock(cargs->list_lock);
-      add_to_list(cargs->list_handle, new_node);
-      pthread_mutex_unlock(cargs->list_lock);
+      // TODO: Safely use add_to_list to add new_node to the list
     }
   }
 
@@ -250,8 +166,8 @@ static void *run_acceptor(void *args) {
         client_args[num_clients].list_handle = aargs->list_handle;
         client_args[num_clients].list_lock = aargs->list_lock;
         num_clients++;
-        pthread_create(&threads[num_clients - 1], NULL, run_client,
-                       &client_args[num_clients - 1]);
+
+        // TODO: Create a new thread to handle the client
       }
     }
   }
@@ -260,9 +176,8 @@ static void *run_acceptor(void *args) {
 
   // Shutdown and cleanup
   for (int i = 0; i < num_clients; i++) {
-    client_args[i].run = false;
-    pthread_join(threads[i], NULL);
-    close(client_args[i].cfd);
+    // TODO: Set flag to stop the client thread
+    // TODO: Wait for the client thread and close its socket
   }
 
   if (close(sfd) == -1) {
@@ -292,15 +207,8 @@ int main() {
   };
   pthread_create(&acceptor_thread, NULL, run_acceptor, &aargs);
 
-  while (1) {
-    pthread_mutex_lock(&list_mutex);
-    uint32_t count = list_handle.count;
-    pthread_mutex_unlock(&list_mutex);
+  // TODO: Wait until enough messages are received
 
-    if (count >= MAX_CLIENTS * NUM_MSG_PER_CLIENT) {
-      break;
-    }
-  }
   aargs.run = false;
   pthread_join(acceptor_thread, NULL);
 

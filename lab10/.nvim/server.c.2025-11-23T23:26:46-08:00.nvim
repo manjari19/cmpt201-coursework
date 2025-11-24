@@ -298,7 +298,7 @@ int main() {
     pthread_mutex_unlock(&list_mutex);
 
     if (count >= MAX_CLIENTS * NUM_MSG_PER_CLIENT) {
-      break;
+        break;
     }
   }
   aargs.run = false;
